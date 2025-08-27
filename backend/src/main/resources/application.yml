@@ -1,0 +1,65 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/signature_db
+    username: root
+    password: Root@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 725537148439-hfds1ni4ltiu3upm7d76jrqa9t6tio64.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile,email
+            redirect-uri: "http://localhost:8080/login/oauth2/code/google"
+  
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: devgupta791@gmail.com
+    password: fxer osns owkc hoto
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+jwt:
+  secret: fb301f6d094e5c7c67a40ebb735cd416df61481a9e9022af8eb9136174171734
+  expiration: 86400000
+
+stripe:
+  api-key: sk_test_51RLLXSGbDs9DLdlk17OHp1pcsNculnmh9kPJPMn71uuzAIAwMP1kqGZjlZa54MKNa0ImWCA6KLbjiupbcaPlo0RX00TyYXtKPJ
+  webhook-secret: whsec_dummy_secret
+
+app:
+  frontend-url: http://localhost:4200
+
+logging:
+  level:
+    com.signature: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/signature-app.log
