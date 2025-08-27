@@ -30,7 +30,7 @@ public class PaymentService {
     @Value("${app.frontend-url}")
     private String frontendUrl;
 
-    public String createCheckoutSession(Long userId, String planType) throws StripeException {
+    public String createCheckoutSession(String userId, String planType) throws StripeException {
         Stripe.apiKey = stripeApiKey;
         
         User user = userRepository.findById(userId)
@@ -58,7 +58,7 @@ public class PaymentService {
                     )
                     .build()
             )
-            .putMetadata("userId", userId.toString())
+            .putMetadata("userId", userId)
             .putMetadata("planType", planType)
             .build();
 
@@ -66,7 +66,7 @@ public class PaymentService {
         
         // Save payment record
         Payment payment = new Payment();
-        payment.setUser(user);
+        payment.setUserId(user.getId());
         payment.setStripeSessionId(session.getId());
         payment.setAmount(BigDecimal.valueOf(amount / 100.0));
         payment.setPlanType(Payment.PlanType.valueOf(planType));
@@ -83,7 +83,8 @@ public class PaymentService {
         paymentRepository.save(payment);
         
         // Upgrade user to PRO
-        User user = payment.getUser();
+        User user = userRepository.findById(payment.getUserId())
+            .orElseThrow(() -> new RuntimeException("User not found"));
         user.setPro(true);
         userRepository.save(user);
     }

@@ -23,15 +23,15 @@ public class SignatureService {
     @Autowired
     private TemplateRepository templateRepository;
 
-    public List<Signature> getUserSignatures(Long userId) {
+    public List<Signature> getUserSignatures(String userId) {
         return signatureRepository.findByUserIdOrderByCreatedAtDesc(userId);
     }
 
-    public Optional<Signature> getSignatureById(Long id) {
+    public Optional<Signature> getSignatureById(String id) {
         return signatureRepository.findById(id);
     }
 
-    public Signature createSignature(Long userId, Long templateId, String contentJson, String signatureName) {
+    public Signature createSignature(String userId, String templateId, String contentJson, String signatureName) {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new RuntimeException("User not found"));
         
@@ -43,11 +43,11 @@ public class SignatureService {
             throw new RuntimeException("PRO template requires PRO subscription");
         }
         
-        Signature signature = new Signature(user, template, contentJson, signatureName);
+        Signature signature = new Signature(userId, templateId, contentJson, signatureName);
         return signatureRepository.save(signature);
     }
 
-    public Signature updateSignature(Long id, String contentJson, String signatureName) {
+    public Signature updateSignature(String id, String contentJson, String signatureName) {
         Signature signature = signatureRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Signature not found"));
         
@@ -57,7 +57,7 @@ public class SignatureService {
         return signatureRepository.save(signature);
     }
 
-    public void deleteSignature(Long id) {
+    public void deleteSignature(String id) {
         signatureRepository.deleteById(id);
     }
 }

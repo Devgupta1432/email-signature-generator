@@ -8,12 +8,12 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class UserPrincipal implements UserDetails {
-    private Long id;
+    private String id;
     private String email;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrincipal(Long id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(String id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -27,7 +27,7 @@ public class UserPrincipal implements UserDetails {
         return new UserPrincipal(user.getId(), user.getEmail(), user.getPassword(), authorities);
     }
 
-    public Long getId() { return id; }
+    public String getId() { return id; }
     public String getEmail() { return email; }
 
     @Override

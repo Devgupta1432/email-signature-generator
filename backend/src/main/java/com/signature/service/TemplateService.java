@@ -25,7 +25,7 @@ public class TemplateService {
         return templateRepository.findByCategory(category);
     }
 
-    public Optional<Template> getTemplateById(Long id) {
+    public Optional<Template> getTemplateById(String id) {
         return templateRepository.findById(id);
     }
 
@@ -33,11 +33,11 @@ public class TemplateService {
         return templateRepository.save(template);
     }
 
-    public void deleteTemplate(Long id) {
+    public void deleteTemplate(String id) {
         templateRepository.deleteById(id);
     }
 
-    public Template updateTemplate(Long id, Template templateDetails) {
+    public Template updateTemplate(String id, Template templateDetails) {
         Template template = templateRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Template not found"));
         
