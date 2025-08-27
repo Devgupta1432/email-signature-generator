@@ -13,6 +13,8 @@ public class CorsConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOriginPattern("*");
+        configuration.addAllowedOrigin("https://email-signature-frontend.onrender.com");
+        configuration.addAllowedOrigin("http://localhost:4200");
         configuration.addAllowedMethod("GET");
         configuration.addAllowedMethod("POST");
         configuration.addAllowedMethod("PUT");
