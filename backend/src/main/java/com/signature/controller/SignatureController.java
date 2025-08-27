@@ -25,7 +25,7 @@ public class SignatureController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Signature> getSignature(@PathVariable Long id) {
+    public ResponseEntity<Signature> getSignature(@PathVariable String id) {
         return signatureService.getSignatureById(id)
             .map(signature -> ResponseEntity.ok(signature))
             .orElse(ResponseEntity.notFound().build());
@@ -36,7 +36,7 @@ public class SignatureController {
             @AuthenticationPrincipal UserPrincipal userPrincipal,
             @RequestBody Map<String, Object> request) {
         try {
-            Long templateId = Long.valueOf(request.get("templateId").toString());
+            String templateId = request.get("templateId").toString();
             String contentJson = request.get("contentJson").toString();
             String signatureName = request.get("signatureName").toString();
             
@@ -50,7 +50,7 @@ public class SignatureController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateSignature(
-            @PathVariable Long id,
+            @PathVariable String id,
             @RequestBody Map<String, String> request) {
         try {
             String contentJson = request.get("contentJson");
@@ -64,7 +64,7 @@ public class SignatureController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteSignature(@PathVariable Long id) {
+    public ResponseEntity<?> deleteSignature(@PathVariable String id) {
         signatureService.deleteSignature(id);
         return ResponseEntity.ok().build();
     }

@@ -31,7 +31,7 @@ public class TemplateController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Template> getTemplate(@PathVariable Long id) {
+    public ResponseEntity<Template> getTemplate(@PathVariable String id) {
         return templateService.getTemplateById(id)
             .map(template -> ResponseEntity.ok(template))
             .orElse(ResponseEntity.notFound().build());
@@ -46,7 +46,7 @@ public class TemplateController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Template> updateTemplate(@PathVariable Long id, @RequestBody Template template) {
+    public ResponseEntity<Template> updateTemplate(@PathVariable String id, @RequestBody Template template) {
         try {
             Template updatedTemplate = templateService.updateTemplate(id, template);
             return ResponseEntity.ok(updatedTemplate);
@@ -57,7 +57,7 @@ public class TemplateController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> deleteTemplate(@PathVariable Long id) {
+    public ResponseEntity<?> deleteTemplate(@PathVariable String id) {
         templateService.deleteTemplate(id);
         return ResponseEntity.ok().build();
     }
