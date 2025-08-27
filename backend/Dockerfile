@@ -8,4 +8,4 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/email-signature-generator-1.0.0.jar app.jar
 EXPOSE 8080
-CMD ["java", "-jar", "app.jar", "--spring.profiles.active=prod"]
+CMD ["java", "-Dspring.profiles.active=prod", "-jar", "app.jar"]

@@ -5,6 +5,10 @@ spring:
   data:
     mongodb:
       uri: ${MONGODB_URI:mongodb+srv://devgupta791:devgupta791@signature-cluster.d5vvqi4.mongodb.net/signature_db?retryWrites=true&w=majority&appName=signature-cluster}
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
   
   security:
     oauth2:
