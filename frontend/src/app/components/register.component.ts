@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { RegisterRequest } from '../models/user.model';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -410,6 +411,7 @@ export class RegisterComponent implements OnInit {
 
   signupWithGoogle(): void {
     localStorage.setItem('redirectAfterLogin', this.returnUrl);
-    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+    const baseUrl = environment.apiUrl.replace('/api', '');
+    window.location.href = `${baseUrl}/oauth2/authorization/google`;
   }
 }
