@@ -53,7 +53,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         
         String jwt = jwtUtils.generateTokenFromEmail(email);
         
-        String redirectUrl = frontendUrl + "/oauth2/success?token=" + jwt;
+        String redirectUrl = frontendUrl + "/?token=" + jwt;
         getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 }

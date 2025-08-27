@@ -3504,6 +3504,7 @@ export class EnhancedHomepageComponent implements OnInit {
   constructor(private router: Router, public authService: AuthService) {}
 
   ngOnInit() {
+    this.handleOAuthToken();
     window.addEventListener('scroll', this.onScroll.bind(this));
     window.addEventListener('mousemove', this.onMouseMove.bind(this));
     window.addEventListener('click', this.onDocumentClick.bind(this));
@@ -3511,6 +3512,18 @@ export class EnhancedHomepageComponent implements OnInit {
     this.startSignatureRotation();
     this.initParallaxElements();
     this.initIntersectionObserver();
+  }
+
+  private handleOAuthToken() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    if (token) {
+      this.authService.setToken(token);
+      // Remove token from URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+      // Show success message or redirect
+      console.log('OAuth login successful');
+    }
   }
 
   onScroll() {
