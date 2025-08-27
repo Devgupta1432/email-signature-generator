@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const environment = {\n  production: false,\n  apiUrl: 'https://email-signature-generator-back.onrender.com/api',\n  stripePublishableKey: 'pk_test_51RLLXSGbDs9DLdlkYourPublishableKeyHere'\n};","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
