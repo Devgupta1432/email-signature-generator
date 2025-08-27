@@ -2,17 +2,9 @@ server:
   port: ${PORT:8080}
 
 spring:
-  datasource:
-    url: ${DATABASE_URL}
-    driver-class-name: org.postgresql.Driver
-  
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb+srv://devgupta791:devgupta791@signature-cluster.d5vvqi4.mongodb.net/signature_db?retryWrites=true&w=majority&appName=signature-cluster}
   
   security:
     oauth2:

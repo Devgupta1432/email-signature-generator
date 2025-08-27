@@ -10,6 +10,10 @@ spring:
     password: Root@123
     driver-class-name: com.mysql.cj.jdbc.Driver
   
+  data:
+    mongodb:
+      uri: mongodb+srv://devgupta791:devgupta791@signature-cluster.d5vvqi4.mongodb.net/signature_db?retryWrites=true&w=majority&appName=signature-cluster
+  
   jpa:
     hibernate:
       ddl-auto: update
