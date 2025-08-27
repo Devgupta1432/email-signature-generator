@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { LoginRequest } from '../models/user.model';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -379,6 +380,7 @@ export class LoginComponent implements OnInit {
 
   loginWithGoogle(): void {
     localStorage.setItem('redirectAfterLogin', this.returnUrl);
-    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+    const baseUrl = environment.apiUrl.replace('/api', '');
+    window.location.href = `${baseUrl}/oauth2/authorization/google`;
   }
 }
