@@ -1,54 +1,52 @@
 package com.signature.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "signatures")
+@Document(collection = "signatures")
 public class Signature {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Field("user_id")
+    private String userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "template_id", nullable = false)
-    private Template template;
+    @Field("template_id")
+    private String templateId;
 
-    @Column(name = "content_json", columnDefinition = "TEXT")
+    @Field("content_json")
     private String contentJson;
 
-    @Column(name = "signature_name")
+    @Field("signature_name")
     private String signatureName;
 
-    @Column(name = "created_at")
+    @Field("created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "updated_at")
+    @Field("updated_at")
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     // Constructors
     public Signature() {}
 
-    public Signature(User user, Template template, String contentJson, String signatureName) {
-        this.user = user;
-        this.template = template;
+    public Signature(String userId, String templateId, String contentJson, String signatureName) {
+        this.userId = userId;
+        this.templateId = templateId;
         this.contentJson = contentJson;
         this.signatureName = signatureName;
     }
 
     // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 
-    public Template getTemplate() { return template; }
-    public void setTemplate(Template template) { this.template = template; }
+    public String getTemplateId() { return templateId; }
+    public void setTemplateId(String templateId) { this.templateId = templateId; }
 
     public String getContentJson() { return contentJson; }
     public void setContentJson(String contentJson) { this.contentJson = contentJson; }
@@ -62,7 +60,6 @@ public class Signature {
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 
-    @PreUpdate
     public void preUpdate() {
         this.updatedAt = LocalDateTime.now();
     }

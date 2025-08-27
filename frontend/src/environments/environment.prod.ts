@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://your-backend-name.onrender.com/api'
+  apiUrl: 'https://email-signature-generator-back.onrender.com/api'
 };

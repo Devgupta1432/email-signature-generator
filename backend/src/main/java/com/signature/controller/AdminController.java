@@ -28,13 +28,13 @@ public class AdminController {
     }
 
     @PutMapping("/users/{id}/pro")
-    public ResponseEntity<String> toggleUserPro(@PathVariable Long id, @RequestBody Map<String, Boolean> request) {
+    public ResponseEntity<String> toggleUserPro(@PathVariable String id, @RequestBody Map<String, Boolean> request) {
         adminService.updateUserProStatus(id, request.get("isPro"));
         return ResponseEntity.ok("User status updated");
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable String id) {
         adminService.deleteUser(id);
         return ResponseEntity.ok("User deleted");
     }

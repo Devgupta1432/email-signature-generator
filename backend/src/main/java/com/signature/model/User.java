@@ -1,29 +1,28 @@
 package com.signature.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "users")
+@Document(collection = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @NotBlank
-    @Column(name = "first_name")
+    @Field("first_name")
     private String firstName;
 
     @NotBlank
-    @Column(name = "last_name")
+    @Field("last_name")
     private String lastName;
 
     @Email
     @NotBlank
-    @Column(unique = true)
     private String email;
 
     private String password;
@@ -32,31 +31,27 @@ public class User {
 
     private String mobile;
 
-    @Column(name = "office_number")
+    @Field("office_number")
     private String officeNumber;
 
     private String designation;
 
-    @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 
-    @Column(name = "is_verified")
+    @Field("is_verified")
     private boolean isVerified = false;
 
-    @Column(name = "is_pro")
+    @Field("is_pro")
     private boolean isPro = false;
 
-    @Column(name = "verification_token")
+    @Field("verification_token")
     private String verificationToken;
 
-    @Column(name = "created_at")
+    @Field("created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Signature> signatures;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Payment> payments;
+    private List<String> signatureIds;
+    private List<String> paymentIds;
 
     public enum Role {
         USER, ADMIN
@@ -73,8 +68,8 @@ public class User {
     }
 
     // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
@@ -115,9 +110,9 @@ public class User {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public List<Signature> getSignatures() { return signatures; }
-    public void setSignatures(List<Signature> signatures) { this.signatures = signatures; }
+    public List<String> getSignatureIds() { return signatureIds; }
+    public void setSignatureIds(List<String> signatureIds) { this.signatureIds = signatureIds; }
 
-    public List<Payment> getPayments() { return payments; }
-    public void setPayments(List<Payment> payments) { this.payments = payments; }
+    public List<String> getPaymentIds() { return paymentIds; }
+    public void setPaymentIds(List<String> paymentIds) { this.paymentIds = paymentIds; }
 }

@@ -1,37 +1,33 @@
 package com.signature.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "payments")
+@Document(collection = "payments")
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Field("user_id")
+    private String userId;
 
-    @Column(name = "stripe_session_id")
+    @Field("stripe_session_id")
     private String stripeSessionId;
 
-    @Column(name = "stripe_payment_intent_id")
+    @Field("stripe_payment_intent_id")
     private String stripePaymentIntentId;
 
-    @Column(precision = 10, scale = 2)
     private BigDecimal amount;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "plan_type")
+    @Field("plan_type")
     private PlanType planType;
 
-    @Enumerated(EnumType.STRING)
     private PaymentStatus status = PaymentStatus.PENDING;
 
-    @Column(name = "created_at")
+    @Field("created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public enum PlanType {
@@ -45,19 +41,19 @@ public class Payment {
     // Constructors
     public Payment() {}
 
-    public Payment(User user, String stripeSessionId, BigDecimal amount, PlanType planType) {
-        this.user = user;
+    public Payment(String userId, String stripeSessionId, BigDecimal amount, PlanType planType) {
+        this.userId = userId;
         this.stripeSessionId = stripeSessionId;
         this.amount = amount;
         this.planType = planType;
     }
 
     // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 
     public String getStripeSessionId() { return stripeSessionId; }
     public void setStripeSessionId(String stripeSessionId) { this.stripeSessionId = stripeSessionId; }

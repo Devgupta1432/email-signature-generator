@@ -32,13 +32,13 @@ public class AdminService {
         return stats;
     }
 
-    public void updateUserProStatus(Long userId, Boolean isPro) {
+    public void updateUserProStatus(String userId, Boolean isPro) {
         User user = userRepository.findById(userId).orElseThrow();
         user.setPro(isPro);
         userRepository.save(user);
     }
 
-    public void deleteUser(Long userId) {
+    public void deleteUser(String userId) {
         userRepository.deleteById(userId);
     }
 }
