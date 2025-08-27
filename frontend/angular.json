@@ -20,7 +20,7 @@
             "tsConfig": "tsconfig.app.json",
             "baseHref": "/",
             "deployUrl": "/",
-            "assets": ["src/favicon.ico", "src/assets", "_redirects"],
+            "assets": ["src/favicon.ico", "src/assets", "src/_redirects"],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
