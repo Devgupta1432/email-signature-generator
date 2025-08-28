@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = {"https://email-signature-frontend.onrender.com", "http://localhost:4200"}, maxAge = 3600)
 public class AuthController {
     
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
