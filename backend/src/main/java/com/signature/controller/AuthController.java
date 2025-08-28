@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -22,6 +23,9 @@ public class AuthController {
     
     @Autowired
     AuthService authService;
+    
+    @Value("${app.frontend-url}")
+    private String frontendUrl;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest request) {
@@ -55,10 +59,10 @@ public class AuthController {
             logger.info("Email verification request received for token: {}", token);
             authService.verifyEmail(token);
             logger.info("Email verification successful for token: {}", token);
-            return "<html><body><h2>Email Verified Successfully!</h2><p>Your email has been verified. You can now <a href='http://localhost:4200/login'>login to your account</a>.</p></body></html>";
+            return "<html><body><h2>Email Verified Successfully!</h2><p>Your email has been verified. You can now <a href='" + frontendUrl + "/login'>login to your account</a>.</p></body></html>";
         } catch (RuntimeException e) {
             logger.error("Email verification failed for token: {} - Error: {}", token, e.getMessage(), e);
-            return "<html><body><h2>Verification Failed</h2><p>" + e.getMessage() + "</p><p><a href='http://localhost:4200/register'>Try registering again</a></p></body></html>";
+            return "<html><body><h2>Verification Failed</h2><p>" + e.getMessage() + "</p><p><a href='" + frontendUrl + "/register'>Try registering again</a></p></body></html>";
         }
     }
 
