@@ -14,13 +14,16 @@ public class EmailService {
     
     @Value("${app.frontend-url}")
     private String frontendUrl;
+    
+    @Value("${app.backend-url:https://email-signature-generator-back.onrender.com}")
+    private String backendUrl;
 
     public void sendVerificationEmail(String to, String token) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject("Email Verification - Signature Generator");
         message.setText("Please click the following link to verify your email: " + 
-                       "http://localhost:8080/api/auth/verify-email?token=" + token);
+                       backendUrl + "/auth/verify-email?token=" + token);
         mailSender.send(message);
     }
 }
